@@ -13,12 +13,16 @@ datasource db {
 }
 
 model FoodItem {
-  id             String @id @default(uuid())
-  calories       Int
-  cooking_method String
-  protein        Int
-  carbs          Int
-  fibers         Int
+  id                String @id @default(uuid())
+  calories          Int?
+  cookingMethod     String
+  cookingMethodCode String
+  protein           Int?
+  carbs             Int?
+  fibers            Int?
+  name              String
+  foodCode          String
+  lipids            Int?
 
   category   FoodCategory @relation(fields: [categoryId], references: [id])
   categoryId String
@@ -28,6 +32,6 @@ model FoodItem {
 
 model FoodCategory {
   id        String     @id @default(uuid())
-  name      String
+  name      String     @unique
   foodItems FoodItem[]
 }

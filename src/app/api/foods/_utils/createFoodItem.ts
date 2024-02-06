@@ -1,23 +1,31 @@
 import prisma from "@/app/api/_config/db";
-import { FoodItem } from "@/app/api/_utils/types";
+import { FoodItem } from "@prisma/client";
 
 const createFoodItem = async ({
   calories,
   carbs,
   categoryId,
-  cooking_method,
+  cookingMethod,
+  cookingMethodCode,
+  foodCode,
+  lipids,
   fibers,
   protein,
-}: FoodItem) => {
+  name,
+}: Omit<FoodItem, "id">) => {
   try {
     const createdFoodItem = await prisma.foodItem.create({
       data: {
         calories,
         carbs,
-        cooking_method,
+        cookingMethod,
+        cookingMethodCode,
+        foodCode,
+        lipids,
         fibers,
         protein,
         categoryId,
+        name,
       },
     });
 
