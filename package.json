@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "server": "pscale connect esecriar main --port 3309",
+    "postinstall": "prisma generate",
     "server dev": "pscale connect esecriar preview --port 3309"
   },
   "dependencies": {
