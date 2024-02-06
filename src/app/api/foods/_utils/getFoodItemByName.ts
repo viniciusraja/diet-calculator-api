@@ -16,7 +16,7 @@ const getFoodItemByName = async ({
   pageNumber = 1,
   orderBy = "name",
 }: GetFoodItemByNameProps) => {
-  const orderByKeyWithoutOrder = orderBy?.replace("-", "");
+  const orderByKeyWithoutOrder = orderBy?.replace("-", "") || "name";
   const isDes = orderBy?.includes("-");
 
   const foodItem = await prismaPaginatedQuery({ pageNumber })({
