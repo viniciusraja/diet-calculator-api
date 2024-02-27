@@ -24,7 +24,8 @@ const getFoodItemByName = async ({
     queryOptions: {
       where: {
         name: {
-          startsWith: foodItemName,
+          contains: foodItemName,
+          mode: "insensitive",
         },
       },
       orderBy: {

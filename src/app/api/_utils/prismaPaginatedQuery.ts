@@ -20,12 +20,26 @@ const prismaPaginatedQuery = ({
   const offset = (pageNumber - 1) * pageSize;
 
   return async ({ model, queryOptions = {} }: PrismaQueryProps) => {
-    const paginatedPrisma = await (prisma[model] as any)?.findMany({
-      take: pageSize,
-      skip: offset,
-      ...queryOptions,
-    });
-    return paginatedPrisma;
+    const [data, count] = await prisma.$transaction([
+      (prisma[model] as any)?.findMany({
+        take: pageSize,
+        skip: offset,
+        ...queryOptions,
+      }),
+      (prisma[model] as any)?.count({
+        ...queryOptions,
+      }),
+    ]);
+
+    return {
+      data,
+      page_info: {
+        page: pageNumber,
+        total_count: count,
+        limit: pageSize,
+        total_pages: Math.ceil(count / pageSize),
+      },
+    };
   };
 };
 
