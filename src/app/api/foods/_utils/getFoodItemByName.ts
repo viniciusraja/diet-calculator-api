@@ -24,13 +24,18 @@ const getFoodItemByName = async ({
     queryOptions: {
       where: {
         name: {
-          contains: foodItemName,
+          contains: foodItemName || "",
           mode: "insensitive",
         },
       },
-      orderBy: {
-        [orderByKeyWithoutOrder]: isDes ? "dec" : "asc",
-      },
+      orderBy: [
+        {
+          [orderByKeyWithoutOrder]: isDes ? "dec" : "asc",
+        },
+        {
+          id: "desc",
+        },
+      ],
     },
   });
 
